@@ -4,10 +4,11 @@ import Navbar from '../components/Navbar';
 import CarrinhoItem from '../components/CarrinhoItem';
 import { listarCarrinho, atualizarCarrinho, finalizarCompra } from '../lib/api';
 
+// Tipagem dos produtos e itens do carrinho
 interface Produto {
   id: number;
   nome: string;
-  preco: number | string; // pode vir como string do backend
+  preco: number;
 }
 
 interface CarrinhoItemType {
@@ -17,38 +18,39 @@ interface CarrinhoItemType {
 
 export default function Carrinho() {
   const [itens, setItens] = useState<CarrinhoItemType[]>([]);
-  const [erro, setErro] = useState('');
+  const [erro, setErro] = useState<string>('');
 
+  // Carrega o carrinho ao abrir a página
   useEffect(() => {
     carregarCarrinho();
   }, []);
 
-  // Carrega o carrinho e converte preco para number
   async function carregarCarrinho() {
-    try {
-      const dados: CarrinhoItemType[] = await listarCarrinho();
+  try {
+    const dados: any[] = await listarCarrinho(); // tipagem temporária do fetch
 
-      const carrinhoConvertido: CarrinhoItemType[] = dados.map((item: CarrinhoItemType) => ({
-        ...item,
-        produto: {
-          ...item.produto,
-          preco: Number(item.produto.preco),
-        },
-      }));
+    const carrinhoConvertido: CarrinhoItemType[] = dados.map((item: any) => ({
+      produto: {
+        id: Number(item.produto.id),
+        nome: String(item.produto.nome),
+        preco: Number(item.produto.preco),
+      },
+      quantidade: Number(item.quantidade),
+    }));
 
-      setItens(carrinhoConvertido);
-    } catch {
-      setErro('Erro ao carregar carrinho');
-    }
+    setItens(carrinhoConvertido);
+  } catch {
+    setErro('Erro ao carregar carrinho');
   }
+}
 
   // Atualiza a quantidade de um item
-  async function handleUpdate(id: number, quantidade: number) {
+  async function handleUpdate(produtoId: number, quantidade: number) {
     try {
-      await atualizarCarrinho(id, quantidade);
+      await atualizarCarrinho(produtoId, quantidade);
       await carregarCarrinho();
     } catch {
-      alert('Não foi possível atualizar o item');
+      alert('Não foi possível atualizar o item. Adicione o produto antes de alterar a quantidade.');
     }
   }
 
@@ -59,7 +61,7 @@ export default function Carrinho() {
       alert('Compra finalizada com sucesso!');
       setItens([]);
     } catch {
-      alert('Erro ao finalizar compra');
+      alert('Erro ao finalizar compra. Tente novamente.');
     }
   }
 

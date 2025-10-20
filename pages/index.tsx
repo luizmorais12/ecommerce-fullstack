@@ -1,14 +1,17 @@
 import { useEffect, useState } from 'react';
-import Navbar from '../components/Navbar';
-import ProdutoCard from '../components/ProdutoCard';
 import { buscarProdutos, adicionarAoCarrinho } from '../lib/api';
+import ProdutoCard from '../components/ProdutoCard';
+import Navbar from '../components/Navbar';
+import styles from '../styles/Home.module.css';
 
 export default function Home() {
   const [produtos, setProdutos] = useState<any[]>([]);
   const [erro, setErro] = useState('');
 
   useEffect(() => {
-    buscarProdutos().then(setProdutos).catch(() => setErro('Erro ao carregar produtos'));
+    buscarProdutos()
+      .then(setProdutos)
+      .catch(() => setErro('Erro ao carregar produtos'));
   }, []);
 
   async function handleAdd(id: number) {
@@ -19,12 +22,12 @@ export default function Home() {
   return (
     <>
       <Navbar />
-      <div style={{ padding: '20px' }}>
-        <h1>Loja Virtual</h1>
+      <div className={styles.container}>
+        <h1>Produtos</h1>
         {erro && <p>{erro}</p>}
-        <div style={{ display: 'flex', gap: '20px', flexWrap: 'wrap' }}>
-          {produtos.map((p) => (
-            <ProdutoCard key={p.id} produto={p} onAdd={handleAdd} />
+        <div className={styles.grid}>
+          {produtos.map((produto) => (
+            <ProdutoCard key={produto.id} produto={produto} onAdd={handleAdd} />
           ))}
         </div>
       </div>

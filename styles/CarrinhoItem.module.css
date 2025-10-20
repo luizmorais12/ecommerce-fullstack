@@ -1,35 +1,36 @@
-
 .item {
   display: flex;
   justify-content: space-between;
   align-items: center;
-  border-bottom: 1px solid #ddd;
-  padding: 12px 0;
+  background: #fff;
+  border-radius: 10px;
+  box-shadow: 0 3px 8px rgba(0, 0, 0, 0.1);
+  padding: 14px 18px;
+  margin-bottom: 10px;
 }
 
-.item-info {
-  flex: 1;
+.itemInfo p {
+  margin: 2px 0;
+  color: #333;
+  font-size: 1rem;
 }
 
-.item-buttons {
+.itemButtons {
   display: flex;
+  align-items: center;
   gap: 8px;
 }
 
-.item-buttons button {
-  background-color: #0070f3;
+.itemButtons button {
+  background: #0070f3;
   color: white;
   border: none;
-  border-radius: 4px;
-  padding: 4px 10px;
+  border-radius: 6px;
+  padding: 6px 10px;
   cursor: pointer;
   transition: background-color 0.2s;
 }
 
-.item-buttons button:hover {
-  background-color: #005bb5;
-}
-
-.subtotal {
-  font-weight: bold;
+.itemButtons button:hover {
+  background: #0059c1;
 }

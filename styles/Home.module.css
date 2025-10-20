@@ -1,0 +1,15 @@
+.container {
+  padding: 20px;
+}
+
+
+.titulo {
+  margin-bottom: 20px;
+  color: #333;
+}
+
+.grid {
+  display: grid;
+  grid-template-columns: repeat(auto-fill, minmax(220px, 1fr));
+  gap: 20px;
+}
