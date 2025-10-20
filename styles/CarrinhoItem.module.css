@@ -1,0 +1,35 @@
+
+.item {
+  display: flex;
+  justify-content: space-between;
+  align-items: center;
+  border-bottom: 1px solid #ddd;
+  padding: 12px 0;
+}
+
+.item-info {
+  flex: 1;
+}
+
+.item-buttons {
+  display: flex;
+  gap: 8px;
+}
+
+.item-buttons button {
+  background-color: #0070f3;
+  color: white;
+  border: none;
+  border-radius: 4px;
+  padding: 4px 10px;
+  cursor: pointer;
+  transition: background-color 0.2s;
+}
+
+.item-buttons button:hover {
+  background-color: #005bb5;
+}
+
+.subtotal {
+  font-weight: bold;
+}

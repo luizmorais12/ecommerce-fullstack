@@ -1,0 +1,42 @@
+// lib/api.ts
+const API_URL = 'http://localhost:3001'; // Porta do NestJS
+
+export async function buscarProdutos() {
+  const res = await fetch(`${API_URL}/produtos`);
+  if (!res.ok) throw new Error('Erro ao buscar produtos');
+  return res.json();
+}
+
+export async function adicionarAoCarrinho(produtoId: number, quantidade: number) {
+  const res = await fetch(`${API_URL}/carrinho`, {
+    method: 'POST',
+    headers: { 'Content-Type': 'application/json' },
+    body: JSON.stringify({ produtoId, quantidade }),
+  });
+  if (!res.ok) throw new Error('Erro ao adicionar ao carrinho');
+  return res.json();
+}
+
+export async function listarCarrinho() {
+  const res = await fetch(`${API_URL}/carrinho`);
+  if (!res.ok) throw new Error('Erro ao listar carrinho');
+  return res.json();
+}
+
+export async function atualizarCarrinho(produtoId: number, quantidade: number) {
+  const res = await fetch(`${API_URL}/carrinho`, {
+    method: 'PUT',
+    headers: { 'Content-Type': 'application/json' },
+    body: JSON.stringify({ produtoId, quantidade }),
+  });
+  if (!res.ok) throw new Error('Erro ao atualizar carrinho');
+  return res.json();
+}
+
+export async function finalizarCompra() {
+  const res = await fetch(`${API_URL}/carrinho/finalizar-compra`, {
+    method: 'POST',
+  });
+  if (!res.ok) throw new Error('Erro ao finalizar compra');
+  return res.json();
+}
