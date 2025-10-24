@@ -138,11 +138,7 @@ Notificações por email ao finalizar compras
 
 📌 Uso
 Adicione produtos ao carrinho
-
 Atualize quantidades ou remova produtos
-
 Aplique cupom de desconto se disponível
-
 Clique em Finalizar Compra
-
 Visualize seu histórico de compras em /historico
