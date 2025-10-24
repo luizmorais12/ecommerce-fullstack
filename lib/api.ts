@@ -1,12 +1,13 @@
-// lib/api.ts
-const API_URL = 'http://localhost:3001'; // Porta do NestJS
+const API_URL = 'http://localhost:3001'; 
 
-export async function buscarProdutos() {
+// Produtos
+export async function listarProdutos() {
   const res = await fetch(`${API_URL}/produtos`);
   if (!res.ok) throw new Error('Erro ao buscar produtos');
   return res.json();
 }
 
+// Carrinho
 export async function adicionarAoCarrinho(produtoId: number, quantidade: number) {
   const res = await fetch(`${API_URL}/carrinho`, {
     method: 'POST',
@@ -39,4 +40,24 @@ export async function finalizarCompra() {
   });
   if (!res.ok) throw new Error('Erro ao finalizar compra');
   return res.json();
+}
+
+// Histórico de vendas
+export async function listarVendasPorUsuario(usuarioId: number) {
+  const res = await fetch(`${API_URL}/vendas/usuario/${usuarioId}`);
+  if (!res.ok) throw new Error('Erro ao buscar histórico');
+  const dados = await res.json();
+
+  // Ajusta o formato para o front
+  return dados.map((v: any) => ({
+    id: v.id,
+    data: v.createdAt, 
+    total: v.total,
+    status: v.status || 'Finalizado',
+    itens: v.itens.map((i: any) => ({
+      nome: i.produto.nome,
+      quantidade: i.quantidade,
+      preco: Number(i.produto.preco)
+    })),
+  }));
 }
