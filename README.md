@@ -109,7 +109,7 @@ npm install
 npm run start:dev
 API disponível em http://localhost:3001
 
-Frontend (Next.js)
+Frontend (React)
 bash
 Copiar código
 cd frontend
